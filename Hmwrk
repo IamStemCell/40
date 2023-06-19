@@ -1,7 +1,26 @@
+файл архів.zip в репо і в LMS
+1. Створити модель для нотаток з такими колонками:
 
+title 
 
-1,2,3:
-файл в директорії notes1
+text 
+
+reminder
+
+2. Створити модель для категорій з колонками:
+
+title
+
+3. Поєднати нотатки з категорією за допомогою зовнішнього ключа.
+
+4. Створити міграції та застосувати їх.
+
+5. Наповнити таблици тестовими даними.
+
+6. Вивести дані з таблиці нотаток на головну сторінку за допомогою view, створеної в попередньому уроці.
+
+Task 1,2,3:
+файл в директорії застосунку notes1
 
 
 models.py 
@@ -24,12 +43,12 @@ class Note(models.Model):
         return self.title
 
 
-4. в терміналі:
+4. Для створення міграцій, в терміналі:
 python3 manage.py makemigrations notes1
 python3 manage.py migrate
 
-5.Для того, щоб наповнити таблиці тестовими даними, потрібно увійти до Django shell:
-у терміналі:
+5.Для того, щоб наповнити таблиці тестовими даними, в терміналі викликаємо Django shell
+з допомогою коду:
 
 python3 manage.py shell
 
@@ -52,23 +71,12 @@ python3 manage.py shell
 >>>note2.save()
 >>>note3 = Note(title='Note3', text='This is the third note.', reminder=datetime.now(), category=category1)
 >>>note3.save()
-
+>>>exit()
 
 
 #при створенні атрибуту reminder під час створення нотатку використали модуль datetime з поточною датою та часом.
 
-#для видалення нотатку
-from notes1.models import Note
-
->>>note2 = Note.objects.get(title='Note2')
->>>note2.delete()
-
-#створили новий 
-
->>>note2 = Note(title='Note2', text='This is the second note.', reminder=datetime.now(), category=category2)
-
->>>note2.save()
->>>exit()
+6.Щоб вивести дані з таблиці на головну сторінку :
 
 
 у файлі notes1/views.py
@@ -91,7 +99,7 @@ urlpatterns = [
     path("", views.home, name='home'),
 ]
 
-у директорії notes/templates/notes/ файл home.html
+у директорії notes/templates/notes/ файл home.html з шаблоном DTL
 
 
 <!DOCTYPE html>
