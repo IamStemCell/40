@@ -73,4 +73,87 @@ from notes1.models import Note
 
 у файлі notes1/views.py
 
+from django.shortcuts import render
+from .models import Note
 
+def home(request):
+    notes = Note.objects.all()
+    return render(request, 'notes1/home.html', {'notes': notes})
+
+файл urls.py в директорії notes1
+
+from django.urls import path
+from . import views
+
+
+
+urlpatterns = [
+    path("", views.home, name='home'),
+]
+
+у директорії notes/templates/notes/ файл home.html
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+
+    <title>Notes App</title>
+
+    <style>
+
+        .note {
+
+            margin-bottom: 10px;
+
+            padding: 10px;
+
+            border: 1px solid #ccc;
+
+            background-color: #f9f9f9;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>My Notes</h1>
+
+    <div id="notes">
+
+        {% for note in notes %}
+
+            <div class="note">
+
+                <h3>{{ note.title }}</h3>
+
+                <p>{{ note.text }}</p>
+
+                <p> Category: {{ note.category }}<p/>
+
+                <p> Reminder: {{ note.reminder }}<p/>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+в терміналі: python3 manage.py runserver
+
+у браузері: http://127.0.0.1:8000/ 
